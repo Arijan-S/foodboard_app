@@ -6,11 +6,27 @@
   background-color: #121921;
 }
 
+/* Mobile responsive adjustments for header */
+/* @media (max-width: 768px) {
+  .login_header {
+    margin-top: 30px;
+    padding-top: 15px;
+    height: 50px;
+  }
+} */
+
 .login_header h1 {
   font-size: 1.2rem;
   font-weight: 400;
   color: #fff;
 }
+
+/* Mobile responsive adjustments for header title */
+/* @media (max-width: 768px) {
+  .login_header h1 {
+    font-size: 1rem;
+  }
+} */
 
 .form_container {
   display: flex;
@@ -21,20 +37,54 @@
   padding: 2rem;
 }
 
+/* Mobile responsive adjustments for form container */
+/* @media (max-width: 768px) {
+  .form_container {
+    min-height: calc(100vh - 150px);
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form_container {
+    padding: 0.5rem;
+    min-height: calc(100vh - 120px);
+  }
+} */
+
 .control_group {
   background-color: #fff;
   border: 1px solid #f3651e;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 450px;
-  min-height: 600px;
+  width: 450px;
+  height: 670px;
   padding: 3rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
+
+/* Mobile responsive adjustments for control group */
+/* @media (max-width: 768px) {
+  .control_group {
+    max-width: 100%;
+    min-height: 550px;
+    padding: 2rem 1.5rem;
+    margin: 0 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .control_group {
+    min-height: 500px;
+    padding: 1.5rem 1rem;
+    margin: 0 0.25rem;
+    border-radius: 8px;
+  }
+} */
 
 .control_group h2 {
   color: #f3651e;
@@ -44,10 +94,32 @@
   margin: 0 0 2rem 0;
 }
 
+/* Mobile responsive adjustments for form title */
+/* @media (max-width: 768px) {
+  .control_group h2 {
+    font-size: 22px;
+    margin: 0 0 1.5rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .control_group h2 {
+    font-size: 20px;
+    margin: 0 0 1rem 0;
+  }
+} */
+
 .form_control {
   margin-bottom: 1.5rem;
   width: 100%;
 }
+
+/* Mobile responsive adjustments for form controls */
+/* @media (max-width: 480px) {
+  .form_control {
+    margin-bottom: 1rem;
+  }
+} */
 
 label {
   display: block;
@@ -56,6 +128,14 @@ label {
   color: #333;
   margin-bottom: 0.5rem;
 }
+
+/* Mobile responsive adjustments for labels */
+/* @media (max-width: 480px) {
+  label {
+    font-size: 15px;
+    margin-bottom: 0.4rem;
+  }
+} */
 
 input {
   width: 100%;
@@ -66,6 +146,22 @@ input {
   transition: all 0.3s ease;
   background-color: #f8f9fa;
 }
+
+/* Mobile responsive adjustments for inputs */
+/* @media (max-width: 768px) {
+  input {
+    padding: 12px 14px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  input {
+    padding: 12px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+} */
 
 input:focus {
   background-color: #fff;
@@ -128,6 +224,19 @@ input:focus {
   margin-top: 2rem;
 }
 
+/* Mobile responsive adjustments for login CTA */
+/* @media (max-width: 768px) {
+  .login_cta {
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login_cta {
+    margin-top: 1rem;
+  }
+} */
+
 .login_cta button {
   width: 10.7rem;
   height: 3.1rem;
@@ -140,6 +249,24 @@ input:focus {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+
+/* Mobile responsive adjustments for login button */
+/* @media (max-width: 768px) {
+  .login_cta button {
+    width: 100%;
+    height: 3rem;
+    font-size: 15px;
+    max-width: 12rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .login_cta button {
+    height: 2.8rem;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+} */
 
 .login_cta button:hover {
   background-color: #f46a29;
@@ -154,6 +281,21 @@ input:focus {
   transition: all 0.3s ease;
 }
 
+/* Mobile responsive adjustments for register link */
+/* @media (max-width: 768px) {
+  .login_cta a {
+    font-size: 15px;
+    margin-top: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login_cta a {
+    font-size: 14px;
+    margin-top: 20px;
+  }
+} */
+
 .login_cta a:hover {
   color: #f46a29;
 }
@@ -164,6 +306,13 @@ input:focus {
   margin: 20px 0;
   width: 100%;
 }
+
+/* Mobile responsive adjustments for divider */
+/* @media (max-width: 480px) {
+  .divider {
+    margin: 15px 0;
+  }
+} */
 
 .divider::before,
 .divider::after {
@@ -179,6 +328,14 @@ input:focus {
   font-size: 14px;
   background: #fff;
 }
+
+/* Mobile responsive adjustments for divider span */
+/* @media (max-width: 480px) {
+  .divider span {
+    padding: 0 12px;
+    font-size: 13px;
+  }
+} */
 
 .google_signin_btn {
   width: 100%;
@@ -259,11 +416,20 @@ input:focus {
 }
 
 /* Responsive design for Google sign-in button */
-@media (max-width: 480px) {
+/* @media (max-width: 768px) {
   .google_signin_btn {
-    height: 3.2rem;
+    height: 3.3rem;
     font-size: 15px;
     gap: 10px;
+  }
+} */
+
+/* @media (max-width: 480px) {
+  .google_signin_btn {
+    height: 3rem;
+    font-size: 14px;
+    gap: 8px;
+    border-radius: 6px;
   }
 
   .google_icon {
@@ -284,4 +450,54 @@ input:focus {
 
 .error_dot {
   color: #b40e0e;
-}
+} */
+
+/* Additional mobile optimizations */
+/* @media (max-width: 360px) {
+  .control_group {
+    padding: 1rem 0.75rem;
+    min-height: 450px;
+    margin: 0 0.125rem;
+  }
+
+  .form_container {
+    padding: 0.25rem;
+  }
+
+  .login_cta button {
+    height: 2.6rem;
+    font-size: 13px;
+  }
+
+  .google_signin_btn {
+    height: 2.8rem;
+    font-size: 13px;
+  }
+
+  .control_group h2 {
+    font-size: 18px;
+  }
+
+  label {
+    font-size: 14px;
+  }
+
+  input {
+    font-size: 13px;
+    padding: 10px 10px;
+  }
+} */
+
+/* Improve touch targets for mobile devices */
+/* @media (max-width: 768px) {
+  .password_toggle_btn {
+    padding: 12px;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .login_cta button,
+  .google_signin_btn {
+    min-height: 44px;
+  }
+} */
