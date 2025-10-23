@@ -1,0 +1,499 @@
+.header {
+  margin-top: 50px;
+  padding-top: 20px;
+  width: 100%;
+  height: 60px;
+  background-color: #121921;
+}
+
+.header h1 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #fff;
+}
+
+.header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.createMenuLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding: 3rem 0;
+  align-items: start;
+  min-height: 0;
+}
+
+.formSection {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.formSection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.errorMessage {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #f5c6cb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.closeError {
+  background: none;
+  border: none;
+  color: #721c24;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+  touch-action: manipulation;
+}
+
+.closeError:hover {
+  background-color: rgba(114, 28, 36, 0.1);
+}
+
+.closeError:active {
+  background-color: rgba(114, 28, 36, 0.2);
+}
+
+.successMessage {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #c3e6cb;
+  font-weight: 600;
+}
+
+.forms {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.formGroup input,
+.formGroup textarea,
+.formGroup select {
+  padding: 12px 16px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+  font-family: "Jost", sans-serif;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  min-height: 44px;
+}
+
+.formGroup input:focus,
+.formGroup textarea:focus,
+.formGroup select:focus {
+  outline: none;
+  border-color: #f46a29;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(244, 106, 41, 0.1);
+}
+
+.formGroup select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.formActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.createButton,
+.resetButton {
+  flex: 1;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 44px;
+  touch-action: manipulation;
+}
+
+.createButton {
+  background: #f46a29;
+  color: white;
+  box-shadow: 0px 0px 0px 8px rgba(244, 106, 41, 0.3);
+}
+
+.createButton:hover:not(:disabled) {
+  background: #f25b03;
+  transform: translateY(-2px);
+}
+
+.createButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.resetButton {
+  background: #6c757d;
+  color: white;
+  box-shadow: 0px 0px 0px 8px rgba(108, 117, 125, 0.3);
+}
+
+.resetButton:hover {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.previewSection {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.previewSection h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.loadingMessage,
+.emptyMessage {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.menuContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.authMessage {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 3rem;
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.authMessage h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #333;
+  font-weight: 600;
+}
+
+.authMessage p {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 50px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .createMenuLayout {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .container {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 40px 0;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .header p {
+    font-size: 1rem;
+  }
+
+  .createMenuLayout {
+    padding: 2rem 0;
+    gap: 1.5rem;
+  }
+
+  .formSection,
+  .previewSection {
+    padding: 1.5rem;
+  }
+
+  .formSection h2,
+  .previewSection h2 {
+    font-size: 1.3rem;
+  }
+
+  .formRow {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .formActions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .createButton,
+  .resetButton {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 1rem;
+  }
+
+  .menuContainer {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .authMessage {
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+
+  .authMessage h2 {
+    font-size: 1.5rem;
+  }
+
+  .authMessage p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .header {
+    padding: 30px 0;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .header p {
+    font-size: 0.95rem;
+  }
+
+  .createMenuLayout {
+    padding: 1.5rem 0;
+  }
+
+  .formSection,
+  .previewSection {
+    padding: 1.25rem;
+  }
+
+  .formGroup label {
+    font-size: 0.9rem;
+  }
+
+  .formGroup input,
+  .formGroup textarea,
+  .formGroup select {
+    padding: 11px 14px;
+    font-size: 0.95rem;
+  }
+
+  .menuContainer {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .header {
+    padding: 25px 0;
+  }
+
+  .header h1 {
+    font-size: 1.6rem;
+  }
+
+  .header p {
+    font-size: 0.9rem;
+  }
+
+  .createMenuLayout {
+    padding: 1rem 0;
+  }
+
+  .formSection,
+  .previewSection {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .formSection h2,
+  .previewSection h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .formGroup {
+    gap: 0.4rem;
+  }
+
+  .formGroup label {
+    font-size: 0.85rem;
+  }
+
+  .formGroup input,
+  .formGroup textarea,
+  .formGroup select {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .formGroup textarea {
+    min-height: 70px;
+  }
+
+  .formActions {
+    gap: 0.5rem;
+  }
+
+  .createButton,
+  .resetButton {
+    padding: 12px 16px;
+    font-size: 0.95rem;
+  }
+
+  .menuContainer {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .authMessage {
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .authMessage h2 {
+    font-size: 1.3rem;
+  }
+
+  .authMessage p {
+    font-size: 0.95rem;
+  }
+
+  .errorMessage,
+  .successMessage {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .loadingMessage,
+  .emptyMessage {
+    padding: 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  .header h1 {
+    font-size: 1.4rem;
+  }
+
+  .formSection,
+  .previewSection {
+    padding: 0.75rem;
+  }
+
+  .formGroup input,
+  .formGroup textarea,
+  .formGroup select {
+    padding: 8px 10px;
+    font-size: 0.85rem;
+  }
+
+  .createButton,
+  .resetButton {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+}

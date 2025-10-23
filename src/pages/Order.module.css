@@ -1,0 +1,388 @@
+.header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 60px 0;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.lastUpdate {
+  font-size: 0.9rem !important;
+  opacity: 0.7 !important;
+  margin-top: 0.5rem !important;
+  font-style: italic;
+}
+
+.connectionStatus {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.statusIndicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.statusIndicator.connecting {
+  background-color: #ffa500;
+  animation: pulse 1.5s infinite;
+}
+
+.statusIndicator.testing {
+  background-color: #ffa500;
+  animation: pulse 1s infinite;
+}
+
+.statusIndicator.connected {
+  background-color: #4caf50;
+}
+
+.statusIndicator.disconnected {
+  background-color: #f44336;
+}
+
+.statusText {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.orderPageLayout {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  padding: 3rem 0;
+  align-items: start;
+  min-height: calc(100vh - 200px);
+}
+
+.menuSection {
+  min-height: 500px;
+}
+
+/* Filter Section Styles */
+.filterSection {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.searchBar {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.searchBar i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #667eea;
+  font-size: 1.2rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 12px 16px 12px 48px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: #f8f9fa;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filterGroup label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.filterSelect {
+  padding: 10px 12px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #f8f9fa;
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.filterSelect:focus {
+  outline: none;
+  border-color: #667eea;
+  background: white;
+}
+
+.clearFiltersBtn {
+  width: 10.7rem !important;
+  height: 3.1rem !important;
+  font-size: 16px !important;
+  color: #f46a29 !important;
+  border-radius: 8px !important;
+  border: none !important;
+  background-color: #fff !important;
+  box-shadow: 0px 0px 0px 8px rgba(181, 177, 177, 0.3) !important;
+  cursor: pointer !important;
+  margin-top: 0 !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  align-self: end !important;
+}
+
+.clearFiltersBtn:hover {
+  background-color: #f46a29 !important;
+  color: #fff !important;
+  transform: translateY(-2px) !important;
+}
+
+.clearFiltersBtn i {
+  font-size: 1rem !important;
+}
+
+.resultsInfo {
+  text-align: center;
+  padding: 1rem 0;
+  color: #666;
+  font-size: 0.95rem;
+  border-top: 1px solid #e1e5e9;
+  margin-top: 1rem;
+}
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.foodCardLink {
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: block;
+}
+
+.foodCardLink:hover {
+  transform: translateY(-5px);
+}
+
+.summarySection {
+  position: sticky;
+  top: 20px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 0;
+  color: #666;
+  min-height: calc(100vh - 400px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.emptyState h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.emptyState p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.errorContainer {
+  text-align: center;
+  padding: 4rem 0;
+  color: #d32f2f;
+  min-height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.errorContainer h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.errorContainer p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.retryButton {
+  width: 10.7rem !important;
+  height: 3.1rem !important;
+  font-size: 16px !important;
+  color: #f46a29 !important;
+  border-radius: 8px !important;
+  border: none !important;
+  background-color: #fff !important;
+  box-shadow: 0px 0px 0px 8px rgba(181, 177, 177, 0.3) !important;
+  cursor: pointer !important;
+  margin-top: 20px !important;
+  transition: all 0.3s ease !important;
+}
+
+.retryButton:hover {
+  background-color: #f46a29 !important;
+  color: #fff !important;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .orderPageLayout {
+    grid-template-columns: 1fr 300px;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 40px 0;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .orderPageLayout {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 2rem 0;
+    min-height: calc(100vh - 150px);
+  }
+
+  .filterSection {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .clearFiltersBtn {
+    align-self: stretch;
+    justify-content: center;
+  }
+
+  .summarySection {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    z-index: 1000;
+  }
+
+  .menuGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 80px; /* Space for fixed summary */
+  }
+
+  .emptyState {
+    min-height: calc(100vh - 300px);
+  }
+
+  .errorContainer {
+    min-height: calc(100vh - 150px);
+  }
+}
+
+@media (max-width: 480px) {
+  .menuGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .header h1 {
+    font-size: 1.8rem;
+  }
+
+  .filterSection {
+    padding: 1rem;
+  }
+
+  .searchInput,
+  .filterSelect {
+    padding: 10px 12px;
+  }
+
+  .searchBar i {
+    left: 12px;
+  }
+
+  .searchInput {
+    padding-left: 40px;
+  }
+
+  .orderPageLayout {
+    min-height: calc(100vh - 120px);
+  }
+
+  .emptyState {
+    min-height: calc(100vh - 250px);
+  }
+
+  .errorContainer {
+    min-height: calc(100vh - 120px);
+  }
+}

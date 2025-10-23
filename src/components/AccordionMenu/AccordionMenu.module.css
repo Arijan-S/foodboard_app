@@ -1,0 +1,86 @@
+.accordion_parent {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  max-width: 100;
+  margin-bottom: 30px;
+}
+
+.accordion_item {
+  border: 1px solid #e5e5e5;
+  border-bottom: none;
+  background-color: #fff;
+}
+
+.accordion_item:last-child {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 1rem;
+  padding: 15px 20px;
+  color: #333;
+  background-color: #fff;
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc;
+  padding: 20px;
+
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.toggle:hover {
+  background-color: #f9f9f9;
+}
+
+.toggle p {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+}
+
+.direction_indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 30px;
+  font-weight: 300;
+  color: #f46a29;
+}
+
+.content_parent {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.toggled .content_parent {
+  max-height: 1000px;
+  transition: max-height 0.5s ease-in;
+}
+
+.content {
+  padding: 20px;
+  color: #666;
+  line-height: 1.6;
+  border: 1px solid #cccccc;
+}
+
+.content p {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  max-width: fit-content;
+}
