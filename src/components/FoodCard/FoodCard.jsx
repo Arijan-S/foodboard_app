@@ -1,8 +1,14 @@
 import styles from "./FoodCard.module.css";
 
 const FoodCard = (props) => {
+  const handleViewDetails = () => {
+    if (props.onViewDetails) {
+      props.onViewDetails(props);
+    }
+  };
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={handleViewDetails}>
       <div className={styles.imageContainer}>
         <img src={props.imageUrl} alt={props.title} className={styles.image} />
         <div className={styles.overlay}>

@@ -46,10 +46,10 @@ const Navbar = () => {
                   <Link to={CUSTOM_ROUTES.ORDER}>Order</Link>
                 </li>
                 <li>
-                  <Link to={CUSTOM_ROUTES.FAQ}>Faq</Link>
+                  <Link to={CUSTOM_ROUTES.FAQ}>FAQ</Link>
                 </li>
                 <li>
-                  <Link to={CUSTOM_ROUTES.CONTACTS}>Contacts</Link>
+                  <Link to={CUSTOM_ROUTES.CONTACTS}>Contact</Link>
                 </li>
                 {isAuthenticated && (
                   <li>

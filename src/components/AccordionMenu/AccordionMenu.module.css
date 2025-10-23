@@ -11,6 +11,7 @@
   border: 1px solid #e5e5e5;
   border-bottom: none;
   background-color: #fff;
+  border-radius: 8px;
 }
 
 .accordion_item:last-child {
@@ -32,6 +33,7 @@
   border: 1px solid #cccccc;
   border-bottom: 1px solid #cccccc;
   padding: 20px;
+  border-radius: 8px;
 
   outline: none;
   transition: background-color 0.3s ease;
@@ -76,6 +78,7 @@
   color: #666;
   line-height: 1.6;
   border: 1px solid #cccccc;
+  border-radius: 0 0 8px 8px;
 }
 
 .content p {

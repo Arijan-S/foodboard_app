@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "../../components/Button/Button";
 import styles from "./CreateMenus.module.css";
 import FoodCard from "../../components/FoodCard/FoodCard";
+import FoodDetailsModal from "../../components/FoodDetailsModal/FoodDetailsModal";
 import {
   database,
   testDatabaseConnection,
@@ -26,6 +27,8 @@ const CreateMenus = () => {
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [selectedFood, setSelectedFood] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const setupRealTimeListener = () => {
     try {
@@ -218,13 +221,22 @@ const CreateMenus = () => {
     setSuccess(false);
   };
 
+  const handleViewDetails = (food) => {
+    setSelectedFood(food);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedFood(null);
+  };
+
   if (!isAuthenticated) {
     return (
       <>
         <div className={styles.header}>
           <div className="container">
             <h1>Create Menu</h1>
-            <p>Add new food items to your menu</p>
           </div>
         </div>
 
@@ -244,7 +256,6 @@ const CreateMenus = () => {
       <div className={styles.header}>
         <div className="container">
           <h1>Create Menu</h1>
-          <p>Add new food items to your menu</p>
         </div>
       </div>
 
@@ -414,6 +425,10 @@ const CreateMenus = () => {
                     price={food.price}
                     ingredients={food.ingredients}
                     size={food.size}
+                    category={food.category}
+                    createdAt={food.createdAt}
+                    createdByEmail={food.createdByEmail}
+                    onViewDetails={handleViewDetails}
                   />
                 ))}
               </div>
@@ -421,6 +436,12 @@ const CreateMenus = () => {
           </div>
         </div>
       </div>
+
+      <FoodDetailsModal
+        food={selectedFood}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </>
   );
 };

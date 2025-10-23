@@ -1,9 +1,10 @@
 import Map from "../Map";
 import Card from "../Card/Card";
 import styles from "./OurContacts.module.css";
-import AddressIcon from "../../assets/images/icons/addressIcon.png";
-import EmailIcon from "../../assets/images/icons/emailIcon.png";
-import PhoneIcon from "../../assets/images/icons/phoneIcon.png";
+// Using public assets instead of imported assets
+const AddressIcon = "/addressIcon.png";
+const EmailIcon = "/emailIcon.png";
+const PhoneIcon = "/phoneIcon.png";
 
 const OurContacts = () => {
   return (

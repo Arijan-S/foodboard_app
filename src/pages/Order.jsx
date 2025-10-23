@@ -6,7 +6,7 @@ import OrderSummary from "../components/OrderSummary/OrderSummary";
 import SpinnerLoader from "../components/SpinnerLoader";
 import Button from "../components/Button/Button";
 import { useCart } from "../stores/cartContext.jsx";
-import { database, testDatabaseConnection } from "../firebase/firebase";
+import { database } from "../firebase/firebase";
 import { ref, onValue, off } from "firebase/database";
 import styles from "./Order.module.css";
 
@@ -18,28 +18,12 @@ const Order = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [priceRange, setPriceRange] = useState("all");
   const [sortBy, setSortBy] = useState("name");
-  const [lastUpdateTime, setLastUpdateTime] = useState(null);
-  const [connectionStatus, setConnectionStatus] = useState("connecting");
   const { items, updateQuantity, removeFromCart } = useCart();
 
   const setupRealTimeListener = async () => {
     try {
       setLoading(true);
       setError(null);
-
-      // Test database connection first
-      console.log("🔍 Testing database connection...");
-      setConnectionStatus("testing");
-      const isConnected = await testDatabaseConnection();
-
-      if (!isConnected) {
-        setConnectionStatus("disconnected");
-        throw new Error(
-          "Database connection test failed. Please check your internet connection."
-        );
-      }
-
-      setConnectionStatus("connected");
 
       console.log("📡 Setting up real-time listener for foodMenus...");
       const foodMenusRef = ref(database, "foodMenus");
@@ -68,7 +52,6 @@ const Order = () => {
                 `✅ Loaded ${transformedFoodMenus.length} food menu items`
               );
               setFoodMenus(transformedFoodMenus);
-              setLastUpdateTime(new Date().toLocaleTimeString());
             } else {
               console.log("ℹ️ No food menu data found in database");
               setFoodMenus([]);
@@ -82,7 +65,6 @@ const Order = () => {
         },
         (error) => {
           console.error("❌ Firebase real-time listener error:", error);
-          setConnectionStatus("disconnected");
           setError(
             `Failed to connect to food menus: ${error.message}. Please check your connection and try again.`
           );
@@ -93,7 +75,6 @@ const Order = () => {
       return unsubscribe;
     } catch (error) {
       console.error("❌ Error setting up real-time listener:", error);
-      setConnectionStatus("disconnected");
       setError(`Failed to setup real-time updates: ${error.message}`);
       setLoading(false);
       return null;
@@ -230,21 +211,6 @@ const Order = () => {
       <div className={styles.header}>
         <div className="container">
           <h1>Order Food</h1>
-          <p>Choose from our delicious menu items</p>
-          {lastUpdateTime && (
-            <p className={styles.lastUpdate}>Last updated: {lastUpdateTime}</p>
-          )}
-          <div className={styles.connectionStatus}>
-            <span
-              className={`${styles.statusIndicator} ${styles[connectionStatus]}`}
-            ></span>
-            <span className={styles.statusText}>
-              {connectionStatus === "connecting" && "Connecting..."}
-              {connectionStatus === "testing" && "Testing connection..."}
-              {connectionStatus === "connected" && "Connected"}
-              {connectionStatus === "disconnected" && "Disconnected"}
-            </span>
-          </div>
         </div>
       </div>
 

@@ -48,13 +48,11 @@ try {
 export const testDatabaseConnection = async () => {
   try {
     const { ref, get } = await import("firebase/database");
-    const testRef = ref(database, ".info/connected");
+    // Test with a simple read to foodMenus instead of .info/connected
+    const testRef = ref(database, "foodMenus");
     const snapshot = await get(testRef);
-    console.log(
-      "✅ Database connection test:",
-      snapshot.val() ? "Connected" : "Disconnected"
-    );
-    return snapshot.val();
+    console.log("✅ Database connection test: Connected");
+    return true; // If we can read, we're connected
   } catch (error) {
     console.error("❌ Database connection test failed:", error);
     return false;

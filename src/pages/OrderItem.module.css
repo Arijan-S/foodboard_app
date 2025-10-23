@@ -1,7 +1,9 @@
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 40px 0;
+  margin-top: 50px;
+  padding-top: 20px;
+  width: 100%;
+  height: 60px;
+  background-color: #121921;
 }
 
 .backLink {
@@ -27,7 +29,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
-  padding: 3rem 0;
+  padding: 5rem 0;
   align-items: start;
 }
 
@@ -123,40 +125,39 @@
 
 .actionButtons {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   margin-top: 2rem;
 }
 
 .addToCartButton,
 .orderNowButton {
-  flex: 1;
-  padding: 15px 30px;
-  border: none;
+  width: 10.7rem;
+  height: 3.1rem;
+  font-size: 16px;
+  color: #f46a29;
   border-radius: 8px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0px 0px 0px 8px rgba(181, 177, 177, 0.3);
   cursor: pointer;
+  margin-top: 20px;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.addToCartButton {
-  background: #667eea;
-  color: white;
-}
-
-.addToCartButton:hover {
-  background: #5a6fd8;
-  transform: translateY(-2px);
-}
-
-.orderNowButton {
-  background: #28a745;
-  color: white;
-}
-
+.addToCartButton:hover,
 .orderNowButton:hover {
-  background: #218838;
-  transform: translateY(-2px);
+  background-color: #f46a29;
+  color: #fff;
+}
+
+.addToCartButton:disabled,
+.orderNowButton:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.6;
 }
 
 .errorContainer {
@@ -244,30 +245,71 @@
     padding: 2rem 0;
   }
 
+  .header {
+    margin-top: 30px;
+    padding-top: 15px;
+  }
+
   .header h1 {
     font-size: 2rem;
+    margin-bottom: 15px;
+  }
+
+  .detailsSection {
+    padding: 15px;
   }
 
   .detailsSection h2 {
     font-size: 1.8rem;
+    margin-bottom: 1.2rem;
   }
 
   .actionButtons {
     flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .addToCartButton,
+  .orderNowButton {
+    width: 100%;
+    max-width: 250px;
+    height: 3.5rem;
+    font-size: 1rem;
   }
 
   .foodImage {
     height: 300px;
   }
+
+  .quantityControls {
+    justify-content: center;
+  }
+
+  .totalPrice {
+    font-size: 1.2rem;
+    padding: 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
   .header {
-    padding: 30px 0;
+    padding: 20px 0;
   }
 
   .header h1 {
-    font-size: 1.8rem;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .backLink {
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+
+  .foodItemContainer {
+    gap: 1.5rem;
+    padding: 3rem 0;
   }
 
   .detailsSection {
@@ -276,14 +318,68 @@
 
   .detailsSection h2 {
     font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .description,
+  .size,
+  .price {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .quantitySection {
+    margin: 1.5rem 0;
+  }
+
+  .quantitySection label {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .quantityButton {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .quantityDisplay {
+    font-size: 1.1rem;
+    min-width: 35px;
+  }
+
+  .addToCartButton,
+  .orderNowButton {
+    width: 100%;
+    height: 3rem;
+    font-size: 0.9rem;
+    margin-top: 15px;
+  }
+
+  .actionButtons {
+    gap: 1rem;
   }
 
   .foodImage {
     height: 250px;
   }
 
+  .totalPrice {
+    font-size: 1.1rem;
+    padding: 0.7rem;
+    margin: 1.5rem 0;
+  }
+
   .errorActions {
     flex-direction: column;
     align-items: center;
+  }
+
+  .retryButton,
+  .backButton {
+    width: 100%;
+    max-width: 200px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
 }

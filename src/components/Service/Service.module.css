@@ -25,10 +25,29 @@
   color: #767676;
 }
 
-.cards {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.menuCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
   margin: 50px 0 100px 0;
-  gap: 30px;
+}
+
+.loading,
+.error,
+.noMenus {
+  text-align: center;
+  padding: 40px;
+  color: #767676;
+  font-size: 16px;
+}
+
+.error {
+  color: #f25b03;
+}
+
+.foodCardLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
 }

@@ -293,7 +293,7 @@ const Register = () => {
                       />
                     </svg>
                   )}
-                  {isGoogleLoading ? "Signing in..." : "Continue with Google"}
+                  {isGoogleLoading ? "Signing in..." : "Google"}
                 </button>
 
                 <Link to={CUSTOM_ROUTES.LOGIN}>
