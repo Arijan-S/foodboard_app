@@ -33,12 +33,12 @@ const OurContacts = () => {
               <Card
                 icon={AddressIcon}
                 title="Address"
-                description="1234 Street Name, City Name, North MK"
+                description="1234 Centar, Skopje, North Macedonia"
               />
               <Card
                 icon={EmailIcon}
                 title="Email"
-                description="info@yourdomain.com"
+                description="info@foodboard.com"
               />
               <Card
                 icon={PhoneIcon}

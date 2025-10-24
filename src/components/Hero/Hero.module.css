@@ -18,13 +18,15 @@
 .hero h1 {
   font-size: 60px;
   color: #fff;
+  margin: 0;
 }
 
 .hero h3 {
   font-size: 18px;
   font-weight: 500;
   color: #fff;
-  margin: 15px 0 5px 0;
+  margin: 20px 0 20px;
+  text-align: center;
 }
 
 .hero button {

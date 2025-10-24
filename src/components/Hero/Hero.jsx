@@ -12,7 +12,11 @@ const Hero = () => {
         <div className="container">
           <div className={styles.hero}>
             <h1>FOODBOARD</h1>
-            <h3>Food order wizard with online payment.</h3>
+            <h3>
+              Order from your favorite restaurants in minutes. <br />
+              Browse menus, customize your meal, and pay securely all in one
+              place.
+            </h3>
             <Link
               to={
                 isAuthenticated

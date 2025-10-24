@@ -58,7 +58,7 @@
   left: 16px;
   top: 60%;
   transform: translateY(-50%);
-  color: #667eea;
+  color: #f46a29;
   font-size: 1.2rem;
   z-index: 1;
   pointer-events: none;
@@ -78,7 +78,7 @@
 
 .searchInput:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #f46a29;
   background: white;
 }
 
@@ -113,7 +113,7 @@
 
 .filterSelect:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: #f46a29;
   background: white;
 }
 

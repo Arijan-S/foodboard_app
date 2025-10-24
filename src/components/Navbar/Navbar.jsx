@@ -34,7 +34,9 @@ const Navbar = () => {
       <div className={styles.navbar_section}>
         <div className="container">
           <div className={styles.navbar}>
-            <img src={logo} className={styles.logo} alt="logo" />
+            <Link to={CUSTOM_ROUTES.HOME}>
+              <img src={logo} className={styles.logo} alt="logo" />
+            </Link>
 
             <div className={styles.nav_menu}>
               {/* Desktop Navigation Menu - Hidden on mobile */}
@@ -118,7 +120,7 @@ const Navbar = () => {
                   to={CUSTOM_ROUTES.FAQ}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Faq
+                  FAQ
                 </Link>
               </li>
               <li>
@@ -126,7 +128,7 @@ const Navbar = () => {
                   to={CUSTOM_ROUTES.CONTACTS}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Contacts
+                  Contact
                 </Link>
               </li>
               {isAuthenticated && (

@@ -18,7 +18,7 @@ const Footer = () => {
 
               <div className={styles.link}>
                 <i class="ri-arrow-drop-right-line"></i>
-                <Link to={CUSTOM_ROUTES.FAQ}>Faq</Link>
+                <Link to={CUSTOM_ROUTES.FAQ}>FAQ</Link>
               </div>
 
               <div className={styles.link}>

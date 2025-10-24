@@ -260,7 +260,7 @@ const FaqPage = () => {
     <>
       <div className={styles.faqHeader}>
         <div className="container">
-          <h1>Faq</h1>
+          <h1>FAQ</h1>
         </div>
       </div>
 
