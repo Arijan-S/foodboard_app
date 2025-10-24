@@ -45,24 +45,44 @@ const Register = () => {
     }
 
     try {
+      console.log("🚀 Starting user registration...");
       await register(email, password);
+      console.log("✅ Registration successful!");
       setIsRegistrationSuccessful(true);
       alert("Registration successful! You can now login.");
     } catch (error) {
-      console.error("Registration error:", error);
+      console.error("❌ Registration error in Register component:", error);
       let errorMessage = "Registration failed. Please try again.";
 
-      if (error.code === "auth/email-already-in-use") {
-        errorMessage = "An account with this email already exists.";
-      } else if (error.code === "auth/invalid-email") {
-        errorMessage = "Invalid email address.";
-      } else if (error.code === "auth/weak-password") {
-        errorMessage =
-          "Password is too weak. Please use at least 6 characters.";
-      } else if (error.code === "auth/operation-not-allowed") {
-        errorMessage =
-          "Email/password accounts are not enabled. Please contact support.";
+      // More comprehensive error handling
+      switch (error.code) {
+        case "auth/email-already-in-use":
+          errorMessage = "An account with this email already exists.";
+          break;
+        case "auth/invalid-email":
+          errorMessage = "Invalid email address.";
+          break;
+        case "auth/weak-password":
+          errorMessage =
+            "Password is too weak. Please use at least 6 characters.";
+          break;
+        case "auth/operation-not-allowed":
+          errorMessage =
+            "Email/password accounts are not enabled. Please contact support.";
+          break;
+        case "auth/network-request-failed":
+          errorMessage =
+            "Network error. Please check your internet connection and try again.";
+          break;
+        default:
+          errorMessage = `Registration failed: ${error.message}. Please try again.`;
       }
+
+      console.error("Error details:", {
+        code: error.code,
+        message: error.message,
+        stack: error.stack,
+      });
 
       alert(errorMessage);
     }

@@ -50,6 +50,11 @@ try {
     projectId: firebaseConfig.projectId,
     databaseURL: firebaseConfig.databaseURL,
   });
+
+  // Test auth initialization
+  console.log("🔍 Auth object:", auth);
+  console.log("🔍 Auth app:", auth?.app);
+  console.log("🔍 Current user:", auth?.currentUser);
 } catch (error) {
   console.error("❌ Firebase initialization failed:", error);
   throw new Error(`Firebase initialization failed: ${error.message}`);

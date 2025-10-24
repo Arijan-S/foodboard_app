@@ -34,21 +34,52 @@ const Login = () => {
     }
 
     try {
+      console.log("🚀 Starting email/password login...");
       await login(email, password);
+      console.log("✅ Login successful, navigating to create menus...");
       navigate(CUSTOM_ROUTES.CREATE_MENUS);
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("❌ Login error in Login component:", error);
       let errorMessage = "Login failed. Please try again.";
 
-      if (error.code === "auth/user-not-found") {
-        errorMessage = "No account found with this email address.";
-      } else if (error.code === "auth/wrong-password") {
-        errorMessage = "Incorrect password. Please try again.";
-      } else if (error.code === "auth/invalid-email") {
-        errorMessage = "Invalid email address.";
-      } else if (error.code === "auth/too-many-requests") {
-        errorMessage = "Too many failed attempts. Please try again later.";
+      // More comprehensive error handling
+      switch (error.code) {
+        case "auth/user-not-found":
+          errorMessage = "No account found with this email address.";
+          break;
+        case "auth/wrong-password":
+          errorMessage = "Incorrect password. Please try again.";
+          break;
+        case "auth/invalid-email":
+          errorMessage = "Invalid email address.";
+          break;
+        case "auth/too-many-requests":
+          errorMessage = "Too many failed attempts. Please try again later.";
+          break;
+        case "auth/operation-not-allowed":
+          errorMessage =
+            "Email/password authentication is not enabled. Please contact support.";
+          break;
+        case "auth/network-request-failed":
+          errorMessage =
+            "Network error. Please check your internet connection and try again.";
+          break;
+        case "auth/invalid-credential":
+          errorMessage = "Invalid email or password.";
+          break;
+        case "auth/user-disabled":
+          errorMessage =
+            "This account has been disabled. Please contact support.";
+          break;
+        default:
+          errorMessage = `Login failed: ${error.message}. Please try again.`;
       }
+
+      console.error("Error details:", {
+        code: error.code,
+        message: error.message,
+        stack: error.stack,
+      });
 
       alert(errorMessage);
     }

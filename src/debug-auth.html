@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Firebase Auth Debug</title>
+  </head>
+  <body>
+    <h1>Firebase Authentication Debug</h1>
+    <div id="debug-info"></div>
+    <button onclick="testFirebase()">Test Firebase Connection</button>
+    <button onclick="testGoogleAuth()">Test Google Auth</button>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+      import {
+        getAuth,
+        signInWithPopup,
+        GoogleAuthProvider,
+      } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCrjzaZ_5FTXu1ebywZ_Sex2JdQdejxgPI",
+        authDomain: "fir-project-a1973.firebaseapp.com",
+        projectId: "fir-project-a1973",
+        storageBucket: "fir-project-a1973.appspot.com",
+        messagingSenderId: "842672513789",
+        appId: "1:842672513789:web:e1b5c475de3c4d02ac1494",
+        databaseURL: "https://fir-project-a1973-default-rtdb.firebaseio.com",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      window.testFirebase = () => {
+        const debugDiv = document.getElementById("debug-info");
+        debugDiv.innerHTML = `
+                <h3>Firebase Debug Info:</h3>
+                <p>App: ${app ? "Initialized" : "Failed"}</p>
+                <p>Auth: ${auth ? "Initialized" : "Failed"}</p>
+                <p>Current Domain: ${window.location.host}</p>
+                <p>Current Origin: ${window.location.origin}</p>
+                <p>Auth Domain: ${firebaseConfig.authDomain}</p>
+            `;
+      };
+
+      window.testGoogleAuth = async () => {
+        try {
+          const provider = new GoogleAuthProvider();
+          const result = await signInWithPopup(auth, provider);
+          document.getElementById("debug-info").innerHTML += `
+                    <h3>Google Auth Success:</h3>
+                    <p>User: ${result.user.email}</p>
+                    <p>UID: ${result.user.uid}</p>
+                `;
+        } catch (error) {
+          document.getElementById("debug-info").innerHTML += `
+                    <h3>Google Auth Error:</h3>
+                    <p>Code: ${error.code}</p>
+                    <p>Message: ${error.message}</p>
+                `;
+        }
+      };
+    </script>
+  </body>
+</html>

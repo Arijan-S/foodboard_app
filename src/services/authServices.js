@@ -40,11 +40,14 @@ export const register = async (email, password) => {
 export const login = async (email, password) => {
   try {
     console.log("🔍 Attempting email/password login for:", email);
+    console.log("🔍 Auth object available:", !!auth);
+    console.log("🔍 Current domain:", window.location.host);
 
     if (!auth) {
       throw new Error("Firebase auth is not initialized");
     }
 
+    console.log("🔍 Calling signInWithEmailAndPassword...");
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,
@@ -62,6 +65,7 @@ export const login = async (email, password) => {
       code: error.code,
       message: error.message,
       email: email,
+      stack: error.stack,
     });
     throw error;
   }
@@ -89,6 +93,8 @@ export const logout = async () => {
 export const signInWithGoogle = async () => {
   try {
     console.log("🔍 Starting Google sign-in process...");
+    console.log("🔍 Current domain:", window.location.host);
+    console.log("🔍 Current origin:", window.location.origin);
 
     // Check if auth is properly initialized
     if (!auth) {
@@ -120,6 +126,8 @@ export const signInWithGoogle = async () => {
       code: error.code,
       message: error.message,
       stack: error.stack,
+      domain: window.location.host,
+      origin: window.location.origin,
     });
     throw error;
   }
