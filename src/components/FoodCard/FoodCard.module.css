@@ -95,6 +95,59 @@
   font-weight: 500;
 }
 
+.actionButtons {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.editButton {
+  background: #f46a29;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.editButton:hover {
+  background: #f46a29;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
+.editButton:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(0, 123, 255, 0.3);
+}
+
+.deleteButton {
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .imageContainer {
@@ -125,5 +178,16 @@
 
   .title {
     font-size: 1.1rem;
+  }
+
+  .actionButtons {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .editButton,
+  .deleteButton {
+    padding: 10px 12px;
+    font-size: 0.9rem;
   }
 }

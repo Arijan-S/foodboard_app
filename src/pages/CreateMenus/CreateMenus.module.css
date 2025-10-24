@@ -506,3 +506,120 @@
     font-size: 0.9rem;
   }
 }
+
+/* Delete Confirmation Modal */
+.deleteModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.deleteModalContent {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.deleteModalContent h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 1rem 0;
+}
+
+.deleteModalContent p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.5;
+}
+
+.warningText {
+  color: #dc3545 !important;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.deleteActions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.cancelButton,
+.deleteButton {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 80px;
+}
+
+.cancelButton {
+  background: #6c757d;
+  color: white;
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+.deleteButton {
+  background: #dc3545;
+  color: white;
+}
+
+.deleteButton:hover:not(:disabled) {
+  background: #c82333;
+  transform: translateY(-1px);
+}
+
+.cancelButton:disabled,
+.deleteButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive design for delete modal */
+@media (max-width: 480px) {
+  .deleteModal {
+    padding: 10px;
+  }
+
+  .deleteModalContent {
+    padding: 1.5rem;
+  }
+
+  .deleteModalContent h3 {
+    font-size: 1.3rem;
+  }
+
+  .deleteActions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .cancelButton,
+  .deleteButton {
+    width: 100%;
+    padding: 12px 20px;
+  }
+}

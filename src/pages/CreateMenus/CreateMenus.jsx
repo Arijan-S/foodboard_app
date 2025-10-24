@@ -8,7 +8,7 @@ import {
   testDatabaseConnection,
   testDatabaseWritePermissions,
 } from "../../firebase/firebase";
-import { ref, push, set, onValue, off } from "firebase/database";
+import { ref, push, set, onValue, off, remove } from "firebase/database";
 import { useAuth } from "../../stores/authContext";
 
 const CreateMenus = () => {
@@ -29,6 +29,10 @@ const CreateMenus = () => {
   const [success, setSuccess] = useState(false);
   const [selectedFood, setSelectedFood] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [deleting, setDeleting] = useState(false);
+  const [editingMenu, setEditingMenu] = useState(null);
+  const [updating, setUpdating] = useState(false);
 
   const setupRealTimeListener = () => {
     try {
@@ -231,6 +235,121 @@ const CreateMenus = () => {
     setSelectedFood(null);
   };
 
+  const handleDeleteMenu = async (menuId) => {
+    if (!isAuthenticated || !user) {
+      setError("You must be logged in to delete menu items");
+      return;
+    }
+
+    try {
+      setDeleting(true);
+      setError(null);
+
+      const menuRef = ref(database, `foodMenus/${menuId}`);
+      await remove(menuRef);
+
+      setSuccess(true);
+      setDeleteConfirm(null);
+
+      // Hide success message after 3 seconds
+      setTimeout(() => {
+        setSuccess(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Error deleting menu item:", error);
+      setError(`Failed to delete menu item: ${error.message}`);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  const confirmDelete = (menu) => {
+    setDeleteConfirm(menu);
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirm(null);
+  };
+
+  const handleEditMenu = (menu) => {
+    setEditingMenu(menu);
+    setFoodMenu({
+      title: menu.title,
+      imageUrl: menu.imageUrl,
+      size: menu.size,
+      price: menu.price,
+      ingredients: menu.ingredients,
+      category: menu.category,
+    });
+  };
+
+  const handleUpdateMenu = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(false);
+
+    if (!isAuthenticated || !user) {
+      setError("You must be logged in to update menu items");
+      return;
+    }
+
+    if (!validateForm()) {
+      return;
+    }
+
+    try {
+      setUpdating(true);
+
+      const menuData = {
+        ...foodMenu,
+        price: parseFloat(foodMenu.price).toFixed(2),
+        updatedAt: new Date().toISOString(),
+        updatedBy: user.uid,
+        updatedByEmail: user.email,
+      };
+
+      const menuRef = ref(database, `foodMenus/${editingMenu.id}`);
+      await set(menuRef, menuData);
+
+      setSuccess(true);
+      setEditingMenu(null);
+
+      // Reset form
+      setFoodMenu({
+        title: "",
+        imageUrl: "",
+        size: "",
+        price: "",
+        ingredients: "",
+        category: "",
+      });
+
+      // Hide success message after 3 seconds
+      setTimeout(() => {
+        setSuccess(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Error updating menu item:", error);
+      setError(`Failed to update menu item: ${error.message}`);
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  const cancelEdit = () => {
+    setEditingMenu(null);
+    setFoodMenu({
+      title: "",
+      imageUrl: "",
+      size: "",
+      price: "",
+      ingredients: "",
+      category: "",
+    });
+    setError(null);
+    setSuccess(false);
+  };
+
   if (!isAuthenticated) {
     return (
       <>
@@ -262,7 +381,7 @@ const CreateMenus = () => {
       <div className="container">
         <div className={styles.createMenuLayout}>
           <div className={styles.formSection}>
-            <h2>Add New Menu Item</h2>
+            <h2>{editingMenu ? "Edit Menu Item" : "Add New Menu Item"}</h2>
 
             {error && (
               <div className={styles.errorMessage}>
@@ -278,11 +397,14 @@ const CreateMenus = () => {
 
             {success && (
               <div className={styles.successMessage}>
-                ✓ Menu item created successfully!
+                ✓ Operation completed successfully!
               </div>
             )}
 
-            <form onSubmit={handleCreateFoodMenus} className={styles.forms}>
+            <form
+              onSubmit={editingMenu ? handleUpdateMenu : handleCreateFoodMenus}
+              className={styles.forms}
+            >
               <div className={styles.formGroup}>
                 <label htmlFor="title">Title *</label>
                 <input
@@ -389,17 +511,23 @@ const CreateMenus = () => {
               <div className={styles.formActions}>
                 <Button
                   type="submit"
-                  disabled={creating}
+                  disabled={creating || updating}
                   className={styles.createButton}
                 >
-                  {creating ? "Creating..." : "Create Menu Item"}
+                  {creating
+                    ? "Creating..."
+                    : updating
+                    ? "Updating..."
+                    : editingMenu
+                    ? "Update Menu Item"
+                    : "Create Menu Item"}
                 </Button>
                 <Button
                   type="button"
-                  onClick={resetForm}
+                  onClick={editingMenu ? cancelEdit : resetForm}
                   className={styles.resetButton}
                 >
-                  Reset Form
+                  {editingMenu ? "Cancel Edit" : "Reset Form"}
                 </Button>
               </div>
             </form>
@@ -420,6 +548,7 @@ const CreateMenus = () => {
                 {foodMenus.map((food) => (
                   <FoodCard
                     key={food.id}
+                    id={food.id}
                     title={food.title}
                     imageUrl={food.imageUrl}
                     price={food.price}
@@ -429,6 +558,10 @@ const CreateMenus = () => {
                     createdAt={food.createdAt}
                     createdByEmail={food.createdByEmail}
                     onViewDetails={handleViewDetails}
+                    onDelete={confirmDelete}
+                    onEdit={handleEditMenu}
+                    showDelete={true}
+                    showEdit={true}
                   />
                 ))}
               </div>
@@ -442,6 +575,33 @@ const CreateMenus = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       />
+
+      {/* Delete Confirmation Dialog */}
+      {deleteConfirm && (
+        <div className={styles.deleteModal}>
+          <div className={styles.deleteModalContent}>
+            <h3>Confirm Delete</h3>
+            <p>Are you sure you want to delete "{deleteConfirm.title}"?</p>
+            <p className={styles.warningText}>This action cannot be undone.</p>
+            <div className={styles.deleteActions}>
+              <button
+                onClick={cancelDelete}
+                className={styles.cancelButton}
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleDeleteMenu(deleteConfirm.id)}
+                className={styles.deleteButton}
+                disabled={deleting}
+              >
+                {deleting ? "Deleting..." : "Delete"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
