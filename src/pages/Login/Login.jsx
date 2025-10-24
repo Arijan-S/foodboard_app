@@ -58,23 +58,60 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     try {
+      console.log("🚀 Starting Google sign-in from Login component...");
       setIsGoogleLoading(true);
-      await signInWithGoogle();
+
+      const user = await signInWithGoogle();
+      console.log(
+        "✅ Google sign-in successful, navigating to create menus..."
+      );
       navigate(CUSTOM_ROUTES.CREATE_MENUS);
     } catch (error) {
-      console.error("Google sign-in error:", error);
+      console.error("❌ Google sign-in error in Login component:", error);
       let errorMessage = "Google sign-in failed. Please try again.";
 
-      if (error.code === "auth/popup-closed-by-user") {
-        errorMessage = "Sign-in was cancelled. Please try again.";
-      } else if (error.code === "auth/popup-blocked") {
-        errorMessage = "Popup was blocked. Please allow popups and try again.";
-      } else if (
-        error.code === "auth/account-exists-with-different-credential"
-      ) {
-        errorMessage =
-          "An account already exists with this email. Please use email/password login.";
+      // More comprehensive error handling
+      switch (error.code) {
+        case "auth/popup-closed-by-user":
+          errorMessage = "Sign-in was cancelled. Please try again.";
+          break;
+        case "auth/popup-blocked":
+          errorMessage =
+            "Popup was blocked by your browser. Please allow popups for this site and try again.";
+          break;
+        case "auth/account-exists-with-different-credential":
+          errorMessage =
+            "An account already exists with this email. Please use email/password login instead.";
+          break;
+        case "auth/operation-not-allowed":
+          errorMessage =
+            "Google sign-in is not enabled. Please contact support.";
+          break;
+        case "auth/unauthorized-domain":
+          errorMessage =
+            "This domain is not authorized for Google sign-in. Please contact support.";
+          break;
+        case "auth/network-request-failed":
+          errorMessage =
+            "Network error. Please check your internet connection and try again.";
+          break;
+        case "auth/too-many-requests":
+          errorMessage =
+            "Too many requests. Please wait a moment and try again.";
+          break;
+        case "auth/operation-not-supported-in-this-environment":
+          errorMessage =
+            "Google sign-in is not supported in this environment. Please try a different browser.";
+          break;
+        default:
+          errorMessage = `Google sign-in failed: ${error.message}. Please try again.`;
       }
+
+      console.error("Error details:", {
+        code: error.code,
+        message: error.message,
+        stack: error.stack,
+      });
 
       alert(errorMessage);
     } finally {
