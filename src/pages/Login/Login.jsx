@@ -14,6 +14,9 @@ const Login = () => {
   const [passwordHasError, setPasswordHasError] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
 
+  const [authEmailError, setAuthEmailError] = useState(false);
+  const [authPasswordError, setAuthPasswordError] = useState(false);
+
   const [isValid, setIsValid] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -27,8 +30,11 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
 
+    // Mark fields as touched to show validation errors
+    if (email.trim().length === 0) setEmailTouched(true);
+    if (password.trim().length === 0) setPasswordTouched(true);
+
     if (email.trim().length === 0 || password.trim().length === 0) {
-      alert("Please fill in the inputs!");
       return;
     }
 
@@ -36,42 +42,34 @@ const Login = () => {
       console.log("🚀 Starting email/password login...");
       await login(email, password);
       console.log("✅ Login successful, navigating to create menus...");
+      resetStates();
       navigate(CUSTOM_ROUTES.CREATE_MENUS);
     } catch (error) {
       console.error("❌ Login error in Login component:", error);
-      let errorMessage = "Login failed. Please try again.";
 
       // More comprehensive error handling
       switch (error.code) {
         case "auth/user-not-found":
-          errorMessage = "No account found with this email address.";
+        case "auth/invalid-email":
+        case "auth/invalid-credential":
+          setAuthEmailError(true);
+          setAuthPasswordError(true);
           break;
         case "auth/wrong-password":
-          errorMessage = "Incorrect password. Please try again.";
-          break;
-        case "auth/invalid-email":
-          errorMessage = "Invalid email address.";
+        case "auth/invalid-credential":
+          setAuthEmailError(true);
+          setAuthPasswordError(true);
           break;
         case "auth/too-many-requests":
-          errorMessage = "Too many failed attempts. Please try again later.";
-          break;
-        case "auth/operation-not-allowed":
-          errorMessage =
-            "Email/password authentication is not enabled. Please contact support.";
-          break;
         case "auth/network-request-failed":
-          errorMessage =
-            "Network error. Please check your internet connection and try again.";
-          break;
-        case "auth/invalid-credential":
-          errorMessage = "Invalid email or password.";
-          break;
+        case "auth/operation-not-allowed":
         case "auth/user-disabled":
-          errorMessage =
-            "This account has been disabled. Please contact support.";
+          setAuthEmailError(true);
+          setAuthPasswordError(true);
           break;
         default:
-          errorMessage = `Login failed: ${error.message}. Please try again.`;
+          setAuthEmailError(true);
+          setAuthPasswordError(true);
       }
 
       console.error("Error details:", {
@@ -79,11 +77,9 @@ const Login = () => {
         message: error.message,
         stack: error.stack,
       });
-
-      alert(errorMessage);
     }
 
-    resetStates();
+    // Don't reset states on auth error - keep form filled
   };
 
   useEffect(() => {
@@ -138,21 +134,30 @@ const Login = () => {
 
             <div className="form_control">
               <div className="input_error">
-                {emailHasError && <p className="error_dot">*</p>}
+                {(emailHasError || authEmailError) && (
+                  <p className="error_dot">*</p>
+                )}
                 <label htmlFor="email">Email</label>
               </div>
               <input
                 type="email"
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setAuthEmailError(false);
+                  setAuthPasswordError(false);
+                }}
                 onBlur={() => setEmailTouched(true)}
+                className={authEmailError ? "input_error_red" : ""}
               />
             </div>
 
             <div className="form_control">
               <div className="input_error">
-                {passwordHasError && <p className="error_dot">*</p>}
+                {(passwordHasError || authPasswordError) && (
+                  <p className="error_dot">*</p>
+                )}
                 <label htmlFor="password">Password</label>
               </div>
               <div className="password_input_container">
@@ -161,8 +166,13 @@ const Login = () => {
                   id="password"
                   minLength="8"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setAuthEmailError(false);
+                    setAuthPasswordError(false);
+                  }}
                   onBlur={() => setPasswordTouched(true)}
+                  className={authPasswordError ? "input_error_red" : ""}
                 />
                 <button
                   type="button"

@@ -85,6 +85,20 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(243, 101, 30, 0.1);
 }
 
+input.input_error_red {
+  border-color: #dc3545;
+  border-width: 2px;
+}
+
+input.input_error_red:hover {
+  border-color: #dc3545;
+}
+
+input.input_error_red:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
 .password_input_container {
   position: relative;
   display: flex;

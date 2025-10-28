@@ -15,6 +15,9 @@ const Register = () => {
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
 
+  const [authEmailError, setAuthEmailError] = useState(false);
+  const [authPasswordError, setAuthPasswordError] = useState(false);
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -31,13 +34,18 @@ const Register = () => {
   const handleRegister = async (event) => {
     event.preventDefault();
 
-    if (email.trim().length === 0 || password.trim().length === 0) {
-      alert("Please fill in the inputs!");
-      return;
-    }
+    // Mark fields as touched to show validation errors
+    if (username.trim().length === 0) setUsernameTouched(true);
+    if (!email.includes("@")) setEmailTouched(true);
+    if (password.length < 8) setPasswordTouched(true);
+    if (confirmPassword !== password) setConfirmPasswordTouched(true);
 
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+    if (
+      username.trim().length === 0 ||
+      !email.includes("@") ||
+      password.length < 8 ||
+      confirmPassword !== password
+    ) {
       return;
     }
 
@@ -49,30 +57,21 @@ const Register = () => {
       navigate(CUSTOM_ROUTES.LOGIN);
     } catch (error) {
       console.error("❌ Registration error in Register component:", error);
-      let errorMessage = "Registration failed. Please try again.";
 
       // More comprehensive error handling
       switch (error.code) {
         case "auth/email-already-in-use":
-          errorMessage = "An account with this email already exists.";
-          break;
         case "auth/invalid-email":
-          errorMessage = "Invalid email address.";
+          setAuthEmailError(true);
           break;
         case "auth/weak-password":
-          errorMessage =
-            "Password is too weak. Please use at least 6 characters.";
+          setAuthPasswordError(true);
           break;
         case "auth/operation-not-allowed":
-          errorMessage =
-            "Email/password accounts are not enabled. Please contact support.";
-          break;
         case "auth/network-request-failed":
-          errorMessage =
-            "Network error. Please check your internet connection and try again.";
-          break;
         default:
-          errorMessage = `Registration failed: ${error.message}. Please try again.`;
+          setAuthEmailError(true);
+          setAuthPasswordError(true);
       }
 
       console.error("Error details:", {
@@ -80,8 +79,6 @@ const Register = () => {
         message: error.message,
         stack: error.stack,
       });
-
-      alert(errorMessage);
     }
   };
 
@@ -126,21 +123,29 @@ const Register = () => {
 
             <div className="form_control">
               <div className="input_error">
-                {emailHasError && <p className="error_dot">*</p>}
+                {(emailHasError || authEmailError) && (
+                  <p className="error_dot">*</p>
+                )}
                 <label htmlFor="email">Email</label>
               </div>
               <input
                 type="email"
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setAuthEmailError(false);
+                }}
                 onBlur={() => setEmailTouched(true)}
+                className={authEmailError ? "input_error_red" : ""}
               />
             </div>
 
             <div className="form_control">
               <div className="input_error">
-                {passwordHasError && <p className="error_dot">*</p>}
+                {(passwordHasError || authPasswordError) && (
+                  <p className="error_dot">*</p>
+                )}
                 <label htmlFor="password">Password</label>
               </div>
               <div className="password_input_container">
@@ -149,8 +154,12 @@ const Register = () => {
                   id="password"
                   minLength="8"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setAuthPasswordError(false);
+                  }}
                   onBlur={() => setPasswordTouched(true)}
+                  className={authPasswordError ? "input_error_red" : ""}
                 />
                 <button
                   type="button"
