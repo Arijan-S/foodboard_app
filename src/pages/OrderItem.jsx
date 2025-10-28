@@ -21,21 +21,73 @@ const OrderItem = () => {
   const getFoodItem = async () => {
     try {
       setLoading(true);
-      const foodItemRef = ref(database, `foodMenus/${id}`);
+
+      // Log the ID being used for debugging
+      console.log("Fetching food item with ID:", id);
+      console.log("ID type:", typeof id);
+
+      // Ensure ID is properly formatted
+      const foodItemId = id?.toString().trim();
+
+      if (!foodItemId) {
+        throw new Error("Invalid food item ID");
+      }
+
+      const foodItemRef = ref(database, `foodMenus/${foodItemId}`);
+      console.log("Database path:", `foodMenus/${foodItemId}`);
+
       const snapshot = await get(foodItemRef);
 
       if (snapshot.exists()) {
         const data = snapshot.val();
+        console.log("Food item data retrieved:", data);
         setFoodItem({
-          id,
+          id: foodItemId,
           ...data,
         });
       } else {
-        throw new Error("Food item not found");
+        console.error("Snapshot does not exist for ID:", foodItemId);
+
+        // Try to get all food items to see what's available
+        console.log("Attempting to fetch all food items to debug...");
+        const allFoodRef = ref(database, "foodMenus");
+        const allSnapshot = await get(allFoodRef);
+
+        if (allSnapshot.exists()) {
+          const allData = allSnapshot.val();
+          console.log("Available food item IDs:", Object.keys(allData));
+          console.log("Available food items:", allData);
+        }
+
+        throw new Error(`Food item with ID "${foodItemId}" not found.`);
       }
     } catch (error) {
       console.error("Error fetching food item:", error);
-      setError("Failed to load food item. Please try again later.");
+      console.error("Error details:", {
+        code: error.code,
+        message: error.message,
+        id: id,
+        stack: error.stack,
+      });
+
+      // Provide more specific error messages
+      if (error.code === "PERMISSION_DENIED") {
+        setError("Permission denied. You don't have access to view this item.");
+      } else if (
+        error.code === "NETWORK_ERROR" ||
+        error.message.includes("network")
+      ) {
+        setError("Network error. Please check your connection and try again.");
+      } else if (
+        error.code === "NOT_FOUND" ||
+        error.message.includes("not found")
+      ) {
+        setError(
+          "The requested food item could not be found. It may have been removed or the link is incorrect."
+        );
+      } else {
+        setError(`Failed to load food item: ${error.message}`);
+      }
     } finally {
       setLoading(false);
     }
@@ -43,7 +95,12 @@ const OrderItem = () => {
 
   useEffect(() => {
     if (id) {
+      console.log("OrderItem mounted with id:", id);
       getFoodItem();
+    } else {
+      console.error("No ID provided to OrderItem component");
+      setError("Invalid food item ID");
+      setLoading(false);
     }
   }, [id]);
 

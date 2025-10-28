@@ -25,8 +25,10 @@ function App() {
           <Routes>
             <Route path={CUSTOM_ROUTES.HOME} element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path={CUSTOM_ROUTES.ORDER} element={<Order />} />
-              <Route path={CUSTOM_ROUTES.ORDER_ITEM} element={<OrderItem />} />
+              <Route path={CUSTOM_ROUTES.ORDER}>
+                <Route index element={<Order />} />
+                <Route path=":id" element={<OrderItem />} />
+              </Route>
               <Route path={CUSTOM_ROUTES.CART} element={<Cart />} />
               <Route path={CUSTOM_ROUTES.FAQ} element={<Faq />} />
               <Route path={CUSTOM_ROUTES.CONTACTS} element={<Contacts />} />
