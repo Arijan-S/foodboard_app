@@ -27,7 +27,7 @@
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   width: 450px;
-  min-height: 900px;
+  min-height: 800px;
   padding: 50px;
   display: flex;
   flex-direction: column;
@@ -145,99 +145,6 @@ input:focus {
 .login_cta a:hover {
   color: #f46a29;
 }
-
-.divider {
-  display: flex;
-  align-items: center;
-  margin: 20px 0;
-  width: 100%;
-}
-
-.divider::before,
-.divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: #ddd;
-}
-
-.divider span {
-  padding: 0 15px;
-  color: #666;
-  font-size: 14px;
-  background: #fff;
-}
-
-.google_signin_btn {
-  width: 100%;
-  height: 3.5rem;
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
-  border-radius: 8px;
-  border: 2px solid #e1e5e9;
-  background-color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-}
-
-.google_signin_btn:hover:not(:disabled) {
-  background-color: #f8f9fa;
-  border-color: #4285f4;
-  box-shadow: 0 4px 12px rgba(66, 133, 244, 0.15);
-  transform: translateY(-2px);
-}
-
-.google_signin_btn:active:not(:disabled) {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.google_signin_btn:focus {
-  outline: none;
-  border-color: #4285f4;
-  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.1);
-}
-
-.google_signin_btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  background-color: #f5f5f5;
-  border-color: #e0e0e0;
-}
-
-.google_icon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-}
-
-.loading_spinner {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #f3f3f3;
-  border-top: 2px solid #4285f4;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  flex-shrink: 0;
-}
-
-/* Google sign-in button text styling */
-.google_signin_btn span {
-  font-weight: 500;
-  letter-spacing: 0.25px;
-}
-
-/* Responsive design for all screen sizes */
 
 /* Tablet and smaller desktop screens */
 @media (max-width: 1024px) {
@@ -359,31 +266,6 @@ input:focus {
     font-size: 14px;
     margin-top: 20px;
   }
-
-  .divider {
-    margin: 15px 0;
-  }
-
-  .divider span {
-    font-size: 12px;
-    padding: 0 10px;
-  }
-
-  .google_signin_btn {
-    height: 3.2rem;
-    font-size: 15px;
-    gap: 10px;
-  }
-
-  .google_icon {
-    width: 18px;
-    height: 18px;
-  }
-
-  .loading_spinner {
-    width: 18px;
-    height: 18px;
-  }
 }
 
 /* Extra small mobile screens */
@@ -415,15 +297,6 @@ input:focus {
 
   .login_cta a {
     font-size: 13px;
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }
 

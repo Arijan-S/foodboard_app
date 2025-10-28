@@ -50,10 +50,14 @@ const CreateMenus = () => {
               const transformedFoodMenus = [];
 
               for (let key in data) {
-                transformedFoodMenus.push({
+                const menuItem = {
                   id: key,
                   ...data[key],
-                });
+                };
+                // Only show menus created by the current user
+                if (menuItem.createdBy === user?.uid) {
+                  transformedFoodMenus.push(menuItem);
+                }
               }
 
               setFoodMenus(transformedFoodMenus);
@@ -86,7 +90,7 @@ const CreateMenus = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && user) {
       const unsubscribe = setupRealTimeListener();
 
       // Cleanup function to unsubscribe from the listener when component unmounts
@@ -96,7 +100,7 @@ const CreateMenus = () => {
         }
       };
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
   const validateForm = () => {
     if (!foodMenu.title.trim()) {
@@ -241,6 +245,22 @@ const CreateMenus = () => {
       return;
     }
 
+    // Find the menu item to verify ownership
+    const menuItem = foodMenus.find((menu) => menu.id === menuId);
+    if (!menuItem) {
+      setError("Menu item not found");
+      return;
+    }
+
+    // Verify ownership
+    if (menuItem.createdBy !== user.uid) {
+      setError(
+        "You don't have permission to delete this menu item. You can only delete your own menus."
+      );
+      setDeleteConfirm(null);
+      return;
+    }
+
     try {
       setDeleting(true);
       setError(null);
@@ -272,6 +292,14 @@ const CreateMenus = () => {
   };
 
   const handleEditMenu = (menu) => {
+    // Verify ownership before allowing edit
+    if (menu.createdBy !== user.uid) {
+      setError(
+        "You don't have permission to edit this menu item. You can only edit your own menus."
+      );
+      return;
+    }
+
     setEditingMenu(menu);
     setFoodMenu({
       title: menu.title,
@@ -293,6 +321,20 @@ const CreateMenus = () => {
       return;
     }
 
+    if (!editingMenu) {
+      setError("No menu item selected for editing");
+      return;
+    }
+
+    // Verify ownership before updating
+    if (editingMenu.createdBy !== user.uid) {
+      setError(
+        "You don't have permission to update this menu item. You can only update your own menus."
+      );
+      setEditingMenu(null);
+      return;
+    }
+
     if (!validateForm()) {
       return;
     }
@@ -306,6 +348,10 @@ const CreateMenus = () => {
         updatedAt: new Date().toISOString(),
         updatedBy: user.uid,
         updatedByEmail: user.email,
+        // Preserve original creation data
+        createdAt: editingMenu.createdAt,
+        createdBy: editingMenu.createdBy,
+        createdByEmail: editingMenu.createdByEmail,
       };
 
       const menuRef = ref(database, `foodMenus/${editingMenu.id}`);
