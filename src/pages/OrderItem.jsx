@@ -55,11 +55,31 @@ const OrderItem = () => {
 
         if (allSnapshot.exists()) {
           const allData = allSnapshot.val();
-          console.log("Available food item IDs:", Object.keys(allData));
-          console.log("Available food items:", allData);
+          const availableIds = Object.keys(allData);
+          console.log("Available food item IDs:", availableIds);
+          console.log("Total items available:", availableIds.length);
+
+          // Show if ID exists
+          const idExists = availableIds.includes(foodItemId);
+          console.log(`ID "${foodItemId}" exists:`, idExists);
+
+          if (!idExists) {
+            console.log(
+              "Similar IDs:",
+              availableIds.filter(
+                (id) =>
+                  id.includes(foodItemId.substring(0, 4)) ||
+                  foodItemId.includes(id.substring(0, 4))
+              )
+            );
+          }
+        } else {
+          console.error("No food menus exist in the database");
         }
 
-        throw new Error(`Food item with ID "${foodItemId}" not found.`);
+        throw new Error(
+          `Food item with ID "${foodItemId}" not found in the database.`
+        );
       }
     } catch (error) {
       console.error("Error fetching food item:", error);
@@ -94,8 +114,17 @@ const OrderItem = () => {
   };
 
   useEffect(() => {
+    // Log all params
+    console.log("OrderItem - Current URL:", window.location.href);
+
     if (id) {
       console.log("OrderItem mounted with id:", id);
+      console.log("OrderItem - Database instance:", database);
+      console.log("OrderItem - Database app:", database?.app);
+      console.log("OrderItem - Firebase config:", {
+        projectId: database?.app?.options?.projectId,
+        databaseURL: database?.app?.options?.databaseURL,
+      });
       getFoodItem();
     } else {
       console.error("No ID provided to OrderItem component");
